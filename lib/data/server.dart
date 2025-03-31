@@ -78,7 +78,8 @@ class Server {
             if (lastCard == null ||
                 lastCard.color == card.color ||
                 card.color == CardColor.blank ||
-                lastCard.color == CardColor.blank) {
+                lastCard.color == CardColor.blank ||
+                lastCard.value == card.value) {
               usedCards.add(card);
               updatePlayer(
                 player!.copyWith(hand: List.from(player.hand)..remove(card)),
