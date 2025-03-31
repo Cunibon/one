@@ -40,7 +40,7 @@ class OneCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: 400,
+        width: 200,
         child: Card(
           color: cardColorMap[card.color],
           child: Center(child: innerWidget),

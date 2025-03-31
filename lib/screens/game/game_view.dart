@@ -25,22 +25,25 @@ class GameView extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (gameState.lastPlayed != null)
-                OneCardWidget(
-                  card: gameState.lastPlayed!,
+                Expanded(
+                  child: OneCardWidget(
+                    card: gameState.lastPlayed!,
+                    onTap:
+                        () =>
+                            ref
+                                .read(clientProvider(serverIP).notifier)
+                                .takeCard(),
+                  ),
+                )
+              else
+                Expanded(child: SizedBox.shrink()),
+              Expanded(
+                child: GestureDetector(
                   onTap:
                       () =>
                           ref
                               .read(clientProvider(serverIP).notifier)
-                              .takeCard(),
-                )
-              else
-                SizedBox.shrink(),
-              GestureDetector(
-                onTap:
-                    () =>
-                        ref.read(clientProvider(serverIP).notifier).drawCard(),
-                child: SizedBox(
-                  width: 400,
+                              .drawCard(),
                   child: Card(
                     color: Colors.blueGrey,
                     child: Center(child: Text("Draw", style: cardTextStyle)),
