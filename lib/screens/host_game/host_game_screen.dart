@@ -14,7 +14,7 @@ class HostGameScreen extends ConsumerWidget {
     if (server.isLoading) {
       return Center(child: const CircularProgressIndicator());
     } else if (server.hasError) {
-      return Center(child: Text('Oops, something went wrong'));
+      return Center(child: Text('Error: ${server.error}'));
     } else {
       return GameScreen(serverIP: localHost);
     }

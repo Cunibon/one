@@ -4,7 +4,6 @@ import 'package:one/data/client.dart';
 import 'package:one/data/game_state/game_state.dart';
 import 'package:one/screens/game/one_card_widget.dart';
 import 'package:one/screens/game/player_info.dart';
-import 'package:one/styles.dart';
 
 class GameView extends ConsumerWidget {
   const GameView({required this.serverIP, required this.gameState, super.key});
@@ -46,7 +45,9 @@ class GameView extends ConsumerWidget {
                               .drawCard(),
                   child: Card(
                     color: Colors.blueGrey,
-                    child: Center(child: Text("Draw", style: cardTextStyle)),
+                    child: Center(
+                      child: Icon(Icons.add, color: Colors.black, size: 100),
+                    ),
                   ),
                 ),
               ),
