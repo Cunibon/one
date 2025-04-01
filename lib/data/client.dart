@@ -19,6 +19,8 @@ class Client extends _$Client {
 
     _channel.sink.add(jsonEncode({registerKey: localStorage.getItem(nameKey)}));
 
+    ref.onDispose(() => _channel.sink.close());
+
     return _channel.stream.map(
       (event) => GameState.fromJson(jsonDecode(event)),
     );

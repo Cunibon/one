@@ -61,6 +61,7 @@ class _ServerListScreenState extends State<ServerListScreen> {
                                     (context) => AddServerDialog(
                                       initialEntry: entries[index],
                                     ),
+                                barrierDismissible: false,
                               );
 
                               setState(() {

@@ -18,69 +18,75 @@ class GameView extends ConsumerWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
+        Flexible(
           flex: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if (gameState.lastPlayed != null)
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: 350),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 Expanded(
                   child: OneCardWidget(
-                    card: gameState.lastPlayed!,
+                    card: gameState.lastPlayed,
                     onTap:
                         () =>
                             ref
                                 .read(clientProvider(serverIP).notifier)
                                 .takeCard(),
                   ),
-                )
-              else
-                Expanded(child: SizedBox.shrink()),
-              Expanded(
-                child: GestureDetector(
-                  onTap:
-                      () =>
-                          ref
-                              .read(clientProvider(serverIP).notifier)
-                              .drawCard(),
-                  child: Card(
-                    color: Colors.blueGrey,
-                    child: Center(
-                      child: Icon(Icons.add, color: Colors.black, size: 100),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap:
+                        () =>
+                            ref
+                                .read(clientProvider(serverIP).notifier)
+                                .drawCard(),
+                    child: Card(
+                      color: Colors.blueGrey,
+                      child: Center(
+                        child: Icon(Icons.add, color: Colors.black, size: 100),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: playerInfos.length,
-              itemBuilder:
-                  (context, index) => PlayerInfo(
-                    name: playerInfos[index].key,
-                    cardCount: playerInfos[index].value,
-                  ),
+              ],
             ),
           ),
         ),
-        Expanded(
+        Flexible(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: 200),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: playerInfos.length,
+                itemBuilder:
+                    (context, index) => PlayerInfo(
+                      name: playerInfos[index].key,
+                      cardCount: playerInfos[index].value,
+                    ),
+              ),
+            ),
+          ),
+        ),
+        Flexible(
           flex: 2,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: gameState.myHand.length,
-            itemBuilder:
-                (context, index) => OneCardWidget(
-                  card: gameState.myHand[index],
-                  onTap:
-                      () => ref
-                          .read(clientProvider(serverIP).notifier)
-                          .playCard(gameState.myHand[index]),
-                ),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: 350),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: gameState.myHand.length,
+              itemBuilder:
+                  (context, index) => OneCardWidget(
+                    card: gameState.myHand[index],
+                    onTap:
+                        () => ref
+                            .read(clientProvider(serverIP).notifier)
+                            .playCard(gameState.myHand[index]),
+                  ),
+            ),
           ),
         ),
       ],

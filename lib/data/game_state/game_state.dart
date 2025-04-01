@@ -7,9 +7,10 @@ part 'game_state.g.dart';
 @freezed
 abstract class GameState with _$GameState {
   const factory GameState({
-    required OneCard? lastPlayed,
+    required OneCard lastPlayed,
     required Map<String, int> playerCards,
     required List<OneCard> myHand,
+    required bool clockwise,
   }) = _GameState;
 
   factory GameState.fromJson(Map<String, Object?> json) =>

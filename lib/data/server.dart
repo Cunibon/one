@@ -28,9 +28,12 @@ Future<Server> initServer(Ref ref) async {
 class Server {
   late HttpServer server;
   final Map<String, Player> players = {};
+  final Map<String, Player> disconnectedPlayers = {};
 
   List<OneCard> usedCards = [];
   List<OneCard> deck = newDeck();
+
+  bool clockwise = true;
 
   void reshuffelDeck() {
     if (deck.isEmpty) {
@@ -39,15 +42,42 @@ class Server {
     }
   }
 
-  void removePlayer(WebSocketChannel channel) {
-    players.removeWhere((key, value) => value.channel == channel);
+  void disconnectPlayer(WebSocketChannel channel) {
+    for (final player in players.values) {
+      if (player.channel == channel) {
+        disconnectedPlayers[player.name] = players.remove(player.name)!;
+        break;
+      }
+    }
+    updateGameState();
   }
 
   void updatePlayer(Player player) {
     players[player.name] = player;
   }
 
+  void updateGameState() {
+    final simplePlayerCards = players.map(
+      (key, value) => MapEntry(key, value.hand.length),
+    );
+
+    for (final player in players.values) {
+      player.channel.sink.add(
+        jsonEncode(
+          GameState(
+            lastPlayed: usedCards.last,
+            playerCards: simplePlayerCards,
+            myHand: player.hand,
+            clockwise: clockwise,
+          ),
+        ),
+      );
+    }
+  }
+
   Future<void> initServer() async {
+    usedCards.add(deck.removeLast());
+
     final handler = webSocketHandler((webSocket, _) {
       String? playerName;
 
@@ -65,7 +95,7 @@ class Server {
             );
             reshuffelDeck();
           } else if (message.containsKey(takeCardKey)) {
-            if (usedCards.isNotEmpty) {
+            if (usedCards.length > 1) {
               updatePlayer(
                 player!.copyWith(
                   hand: List.from(player.hand)..add(usedCards.removeLast()),
@@ -88,8 +118,11 @@ class Server {
           } else if (message.containsKey(registerKey)) {
             playerName = message[registerKey];
 
-            if (players.containsKey(playerName)) {
-              final player = players[playerName]!.copyWith(channel: webSocket);
+            if (disconnectedPlayers.containsKey(playerName)) {
+              final player = disconnectedPlayers
+                  .remove(playerName)!
+                  .copyWith(channel: webSocket);
+
               updatePlayer(player);
             } else {
               final List<OneCard> playerHand = [];
@@ -109,24 +142,10 @@ class Server {
             }
           }
 
-          final simplePlayerCards = players.map(
-            (key, value) => MapEntry(key, value.hand.length),
-          );
-
-          for (final player in players.values) {
-            player.channel.sink.add(
-              jsonEncode(
-                GameState(
-                  lastPlayed: usedCards.lastOrNull,
-                  playerCards: simplePlayerCards,
-                  myHand: player.hand,
-                ),
-              ),
-            );
-          }
+          updateGameState();
         },
-        onDone: () => removePlayer(webSocket),
-        onError: (e) => removePlayer(webSocket),
+        onDone: () => disconnectPlayer(webSocket),
+        onError: (e) => disconnectPlayer(webSocket),
       );
     });
 
