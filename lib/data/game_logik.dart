@@ -73,11 +73,12 @@ class GameLogik {
     final player = players[playerName];
 
     if (usedCards.length > 1) {
-      final lastCard = usedCards.removeLast();
+      final lastCard = usedCards.last;
       if (lastCard.player == playerName) {
         _updatePlayer(
           player!.copyWith(
-            hand: List.from(player.hand)..add(lastCard.copyWith(player: null)),
+            hand: List.from(player.hand)
+              ..add(usedCards.removeLast().copyWith(player: null)),
           ),
         );
       }
