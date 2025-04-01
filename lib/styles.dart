@@ -6,5 +6,5 @@ final titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
 final cardTextStyle = TextStyle(
   fontSize: 100,
   fontWeight: FontWeight.bold,
-  color: Colors.black,
+  color: Colors.white,
 );

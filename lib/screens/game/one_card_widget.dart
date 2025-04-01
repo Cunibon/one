@@ -16,10 +16,10 @@ class OneCardWidget extends StatelessWidget {
 
     switch (card.value) {
       case skipCardType:
-        innerWidget = Icon(Icons.block, color: Colors.black, size: 100);
+        innerWidget = Icon(Icons.block, color: Colors.white, size: 100);
         break;
       case reverseCardType:
-        innerWidget = Icon(Icons.sync, color: Colors.black, size: 100);
+        innerWidget = Icon(Icons.sync, color: Colors.white, size: 100);
         break;
       case draw2CardType:
         innerWidget = Text("+2", style: cardTextStyle);
@@ -28,10 +28,7 @@ class OneCardWidget extends StatelessWidget {
         innerWidget = Icon(Icons.dataset, color: Colors.white, size: 100);
         break;
       case draw4CardType:
-        innerWidget = Text(
-          "+4",
-          style: cardTextStyle.copyWith(color: Colors.white),
-        );
+        innerWidget = Text("+4", style: cardTextStyle);
         break;
       default:
         innerWidget = Text(card.value, style: cardTextStyle);
@@ -39,10 +36,14 @@ class OneCardWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: SizedBox(
-        width: 200,
-        child: Card(
-          color: cardColorMap[card.color],
+      child: Card(
+        color: cardColorMap[card.color],
+        child: Container(
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(8),
+          ),
           child: Center(child: innerWidget),
         ),
       ),
