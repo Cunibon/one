@@ -73,11 +73,14 @@ class GameLogik {
     final player = players[playerName];
 
     if (usedCards.length > 1) {
-      _updatePlayer(
-        player!.copyWith(
-          hand: List.from(player.hand)..add(usedCards.removeLast()),
-        ),
-      );
+      final lastCard = usedCards.removeLast();
+      if (lastCard.player == playerName) {
+        _updatePlayer(
+          player!.copyWith(
+            hand: List.from(player.hand)..add(lastCard.copyWith(player: null)),
+          ),
+        );
+      }
     }
   }
 
@@ -91,7 +94,7 @@ class GameLogik {
         card.color == CardColor.blank ||
         lastCard.color == CardColor.blank ||
         lastCard.value == card.value) {
-      usedCards.add(card);
+      usedCards.add(card.copyWith(player: playerName));
       _updatePlayer(
         player!.copyWith(hand: List.from(player.hand)..remove(card)),
       );

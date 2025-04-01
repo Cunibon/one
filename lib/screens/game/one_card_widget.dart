@@ -44,7 +44,16 @@ class OneCardWidget extends StatelessWidget {
             color: Colors.black,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Center(child: innerWidget),
+          child: Stack(
+            children: [
+              Align(child: innerWidget),
+              if (card.player != null)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(card.player!),
+                ),
+            ],
+          ),
         ),
       ),
     );
