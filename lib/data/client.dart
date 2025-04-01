@@ -9,12 +9,25 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 part 'client.g.dart';
 
+@Riverpod(keepAlive: true)
+class ServerIP extends _$ServerIP {
+  @override
+  String build() {
+    return localHost;
+  }
+
+  void setIP(String ip) {
+    state = ip;
+  }
+}
+
 @riverpod
 class Client extends _$Client {
   late WebSocketChannel _channel;
 
   @override
-  Stream<GameState> build(String ip) {
+  Stream<GameState> build() {
+    final ip = ref.watch(serverIPProvider);
     _channel = WebSocketChannel.connect(Uri.parse('ws://$ip:8080'));
 
     _channel.sink.add(jsonEncode({registerKey: localStorage.getItem(nameKey)}));

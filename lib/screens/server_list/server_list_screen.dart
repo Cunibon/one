@@ -1,23 +1,25 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:one/application_constants.dart';
+import 'package:one/data/client.dart';
 import 'package:one/data/server_entry/server_entry.dart';
 import 'package:one/routes.dart';
 import 'package:one/screens/server_list/add_server_dialog.dart';
 import 'package:one/styles.dart';
 import 'package:one/widgets/normed_width.dart';
 
-class ServerListScreen extends StatefulWidget {
+class ServerListScreen extends ConsumerStatefulWidget {
   const ServerListScreen({super.key});
 
   @override
-  State<ServerListScreen> createState() => _ServerListScreenState();
+  ServerListScreenState createState() => ServerListScreenState();
 }
 
-class _ServerListScreenState extends State<ServerListScreen> {
+class ServerListScreenState extends ConsumerState<ServerListScreen> {
   late List<ServerEntry> entries;
 
   @override
@@ -78,11 +80,12 @@ class _ServerListScreenState extends State<ServerListScreen> {
                             },
                             icon: Icon(Icons.edit),
                           ),
-                          onTap:
-                              () => context.goNamed(
-                                gameRoute.name!,
-                                pathParameters: {'serverIP': entries[index].ip},
-                              ),
+                          onTap: () {
+                            ref
+                                .read(serverIPProvider.notifier)
+                                .setIP(entries[index].ip);
+                            context.goNamed(gameRoute.name!);
+                          },
                         ),
                       ),
                   separatorBuilder: (context, index) => Divider(),
