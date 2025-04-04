@@ -6,8 +6,11 @@ part 'one_card.g.dart';
 
 @freezed
 abstract class OneCard with _$OneCard {
-  const factory OneCard({required String value, required CardColor color}) =
-      _OneCard;
+  const factory OneCard({
+    required String value,
+    required CardColor color,
+    String? player,
+  }) = _OneCard;
 
   factory OneCard.fromJson(Map<String, Object?> json) =>
       _OneCard.fromJson(json);

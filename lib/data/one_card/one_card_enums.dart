@@ -16,7 +16,7 @@ enum CardColor {
 }
 
 const cardColorMap = {
-  CardColor.blank: Colors.black,
+  CardColor.blank: Colors.white,
   CardColor.red: Colors.red,
   CardColor.green: Colors.green,
   CardColor.blue: Colors.blue,
