@@ -8,7 +8,7 @@ part 'player.freezed.dart';
 abstract class Player with _$Player {
   const factory Player({
     required String name,
-    required List<OneCard> hand,
+    required Map<String, OneCard> hand,
     required WebSocketChannel channel,
   }) = _Player;
 }

@@ -20,11 +20,20 @@ class GameLogik {
   List<OneCard> deck = newDeck();
 
   bool clockwise = true;
+  String currentPlayer = "";
 
   void _reshuffelDeck() {
     if (deck.isEmpty) {
-      final cardsInGame = players.values.expand((e) => e.hand);
-      deck = newDeck()..removeWhere((e) => cardsInGame.contains(e));
+      final cardsInGame = players.values.expand((e) => e.hand.values);
+      deck = newDeck();
+      for (final card in cardsInGame) {
+        for (final freshCard in deck) {
+          if (card.sameCard(freshCard)) {
+            deck.remove(freshCard);
+            break;
+          }
+        }
+      }
     }
   }
 
@@ -53,7 +62,7 @@ class GameLogik {
           GameState(
             lastPlayed: usedCards.last,
             playerCards: simplePlayerCards,
-            myHand: player.hand,
+            myHand: player.hand.values.toList(),
             clockwise: clockwise,
           ),
         ),
@@ -63,8 +72,9 @@ class GameLogik {
 
   void drawCard(String playerName) {
     final player = players[playerName];
+    final lastCard = deck.removeLast();
     _updatePlayer(
-      player!.copyWith(hand: List.from(player.hand)..add(deck.removeLast())),
+      player!.copyWith(hand: Map.from(player.hand)..[lastCard.id] = lastCard),
     );
     _reshuffelDeck();
   }
@@ -75,11 +85,14 @@ class GameLogik {
     if (usedCards.length > 1) {
       final lastCard = usedCards.last;
       if (lastCard.player == playerName) {
+        OneCard card = usedCards.removeLast();
+
+        if (card.isColorSelect) {
+          card = card.copyWith(color: CardColor.blank);
+        }
+
         _updatePlayer(
-          player!.copyWith(
-            hand: List.from(player.hand)
-              ..add(usedCards.removeLast().copyWith(player: null)),
-          ),
+          player!.copyWith(hand: Map.from(player.hand)..[card.id] = card),
         );
       }
     }
@@ -89,17 +102,28 @@ class GameLogik {
     final player = players[playerName];
 
     final card = OneCard.fromJson(message[playCardKey]);
-    final lastCard = usedCards.lastOrNull;
-    if (lastCard == null ||
-        lastCard.color == card.color ||
-        card.color == CardColor.blank ||
-        lastCard.color == CardColor.blank ||
-        lastCard.value == card.value) {
+    final lastCard = usedCards.last;
+    if (lastCard.color == card.color ||
+        lastCard.value == card.value ||
+        card.isColorSelect) {
       usedCards.add(card.copyWith(player: playerName));
       _updatePlayer(
-        player!.copyWith(hand: List.from(player.hand)..remove(card)),
+        player!.copyWith(hand: Map.from(player.hand)..remove(card.id)),
       );
     }
+  }
+
+  void advancePlayer() {
+    final playerNames = players.keys.toList();
+    int index = playerNames.indexOf(currentPlayer) + (clockwise ? 1 : -1);
+
+    if (index < 0) {
+      index = playerNames.length - 1;
+    } else if (index >= playerNames.length) {
+      index = 0;
+    }
+
+    currentPlayer = playerNames[index];
   }
 
   void register(String playerName, WebSocketChannel channel) {
@@ -110,16 +134,21 @@ class GameLogik {
 
       _updatePlayer(player);
     } else {
-      final List<OneCard> playerHand = [];
+      final Map<String, OneCard> playerHand = {};
 
       for (int i = 0; i < 7; i++) {
-        playerHand.add(deck.removeLast());
+        final currentCard = deck.removeLast();
+        playerHand[currentCard.id] = currentCard;
         _reshuffelDeck();
       }
 
       _updatePlayer(
         Player(name: playerName, hand: playerHand, channel: channel),
       );
+    }
+
+    if (currentPlayer == "") {
+      currentPlayer = playerName;
     }
   }
 }

@@ -7,12 +7,14 @@ part of 'one_card.dart';
 // **************************************************************************
 
 _OneCard _$OneCardFromJson(Map<String, dynamic> json) => _OneCard(
+  id: json['id'] as String,
   value: json['value'] as String,
   color: $enumDecode(_$CardColorEnumMap, json['color']),
   player: json['player'] as String?,
 );
 
 Map<String, dynamic> _$OneCardToJson(_OneCard instance) => <String, dynamic>{
+  'id': instance.id,
   'value': instance.value,
   'color': _$CardColorEnumMap[instance.color]!,
   'player': instance.player,

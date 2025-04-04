@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OneCard {
 
- String get value; CardColor get color; String? get player;
+ String get id; String get value; CardColor get color; String? get player;
 /// Create a copy of OneCard
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $OneCardCopyWith<OneCard> get copyWith => _$OneCardCopyWithImpl<OneCard>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OneCard&&(identical(other.value, value) || other.value == value)&&(identical(other.color, color) || other.color == color)&&(identical(other.player, player) || other.player == player));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OneCard&&(identical(other.id, id) || other.id == id)&&(identical(other.value, value) || other.value == value)&&(identical(other.color, color) || other.color == color)&&(identical(other.player, player) || other.player == player));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,value,color,player);
+int get hashCode => Object.hash(runtimeType,id,value,color,player);
 
 @override
 String toString() {
-  return 'OneCard(value: $value, color: $color, player: $player)';
+  return 'OneCard(id: $id, value: $value, color: $color, player: $player)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $OneCardCopyWith<$Res>  {
   factory $OneCardCopyWith(OneCard value, $Res Function(OneCard) _then) = _$OneCardCopyWithImpl;
 @useResult
 $Res call({
- String value, CardColor color, String? player
+ String id, String value, CardColor color, String? player
 });
 
 
@@ -66,9 +66,10 @@ class _$OneCardCopyWithImpl<$Res>
 
 /// Create a copy of OneCard
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? value = null,Object? color = null,Object? player = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? value = null,Object? color = null,Object? player = freezed,}) {
   return _then(_self.copyWith(
-value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as CardColor,player: freezed == player ? _self.player : player // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -81,10 +82,11 @@ as String?,
 /// @nodoc
 @JsonSerializable()
 
-class _OneCard implements OneCard {
-  const _OneCard({required this.value, required this.color, this.player});
+class _OneCard extends OneCard {
+  const _OneCard({required this.id, required this.value, required this.color, this.player}): super._();
   factory _OneCard.fromJson(Map<String, dynamic> json) => _$OneCardFromJson(json);
 
+@override final  String id;
 @override final  String value;
 @override final  CardColor color;
 @override final  String? player;
@@ -102,16 +104,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OneCard&&(identical(other.value, value) || other.value == value)&&(identical(other.color, color) || other.color == color)&&(identical(other.player, player) || other.player == player));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OneCard&&(identical(other.id, id) || other.id == id)&&(identical(other.value, value) || other.value == value)&&(identical(other.color, color) || other.color == color)&&(identical(other.player, player) || other.player == player));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,value,color,player);
+int get hashCode => Object.hash(runtimeType,id,value,color,player);
 
 @override
 String toString() {
-  return 'OneCard(value: $value, color: $color, player: $player)';
+  return 'OneCard(id: $id, value: $value, color: $color, player: $player)';
 }
 
 
@@ -122,7 +124,7 @@ abstract mixin class _$OneCardCopyWith<$Res> implements $OneCardCopyWith<$Res> {
   factory _$OneCardCopyWith(_OneCard value, $Res Function(_OneCard) _then) = __$OneCardCopyWithImpl;
 @override @useResult
 $Res call({
- String value, CardColor color, String? player
+ String id, String value, CardColor color, String? player
 });
 
 
@@ -139,9 +141,10 @@ class __$OneCardCopyWithImpl<$Res>
 
 /// Create a copy of OneCard
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? value = null,Object? color = null,Object? player = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? value = null,Object? color = null,Object? player = freezed,}) {
   return _then(_OneCard(
-value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as CardColor,player: freezed == player ? _self.player : player // ignore: cast_nullable_to_non_nullable
 as String?,

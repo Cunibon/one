@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one/data/client.dart';
 import 'package:one/data/game_state/game_state.dart';
+import 'package:one/data/one_card/one_card.dart';
+import 'package:one/data/one_card/one_card_enums.dart';
 import 'package:one/screens/game/one_card_widget.dart';
 import 'package:one/screens/game/player_info.dart';
+import 'package:one/screens/game/select_color_dialog.dart';
 
 class GameView extends ConsumerWidget {
   const GameView({required this.gameState, super.key});
@@ -30,6 +33,7 @@ class GameView extends ConsumerWidget {
                   onTap: () => ref.read(clientProvider.notifier).takeCard(),
                 ),
               ),
+              Icon(Icons.arrow_back),
               SizedBox(
                 width: 150,
                 height: 200,
@@ -70,10 +74,21 @@ class GameView extends ConsumerWidget {
             itemBuilder:
                 (context, index) => OneCardWidget(
                   card: gameState.myHand[index],
-                  onTap:
-                      () => ref
-                          .read(clientProvider.notifier)
-                          .playCard(gameState.myHand[index]),
+                  onTap: () async {
+                    OneCard card = gameState.myHand[index];
+
+                    if (card.isColorSelect) {
+                      final color = await showDialog<CardColor>(
+                        context: context,
+                        builder: (context) => SelectColorDialog(),
+                      );
+                      if (color == null) return;
+
+                      card = card.copyWith(color: color);
+                    }
+
+                    ref.read(clientProvider.notifier).playCard(card);
+                  },
                 ),
           ),
         ),

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Player {
 
- String get name; List<OneCard> get hand; WebSocketChannel get channel;
+ String get name; Map<String, OneCard> get hand; WebSocketChannel get channel;
 /// Create a copy of Player
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -46,7 +46,7 @@ abstract mixin class $PlayerCopyWith<$Res>  {
   factory $PlayerCopyWith(Player value, $Res Function(Player) _then) = _$PlayerCopyWithImpl;
 @useResult
 $Res call({
- String name, List<OneCard> hand, WebSocketChannel channel
+ String name, Map<String, OneCard> hand, WebSocketChannel channel
 });
 
 
@@ -67,7 +67,7 @@ class _$PlayerCopyWithImpl<$Res>
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,hand: null == hand ? _self.hand : hand // ignore: cast_nullable_to_non_nullable
-as List<OneCard>,channel: null == channel ? _self.channel : channel // ignore: cast_nullable_to_non_nullable
+as Map<String, OneCard>,channel: null == channel ? _self.channel : channel // ignore: cast_nullable_to_non_nullable
 as WebSocketChannel,
   ));
 }
@@ -79,15 +79,15 @@ as WebSocketChannel,
 
 
 class _Player implements Player {
-  const _Player({required this.name, required final  List<OneCard> hand, required this.channel}): _hand = hand;
+  const _Player({required this.name, required final  Map<String, OneCard> hand, required this.channel}): _hand = hand;
   
 
 @override final  String name;
- final  List<OneCard> _hand;
-@override List<OneCard> get hand {
-  if (_hand is EqualUnmodifiableListView) return _hand;
+ final  Map<String, OneCard> _hand;
+@override Map<String, OneCard> get hand {
+  if (_hand is EqualUnmodifiableMapView) return _hand;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_hand);
+  return EqualUnmodifiableMapView(_hand);
 }
 
 @override final  WebSocketChannel channel;
@@ -122,7 +122,7 @@ abstract mixin class _$PlayerCopyWith<$Res> implements $PlayerCopyWith<$Res> {
   factory _$PlayerCopyWith(_Player value, $Res Function(_Player) _then) = __$PlayerCopyWithImpl;
 @override @useResult
 $Res call({
- String name, List<OneCard> hand, WebSocketChannel channel
+ String name, Map<String, OneCard> hand, WebSocketChannel channel
 });
 
 
@@ -143,7 +143,7 @@ class __$PlayerCopyWithImpl<$Res>
   return _then(_Player(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,hand: null == hand ? _self._hand : hand // ignore: cast_nullable_to_non_nullable
-as List<OneCard>,channel: null == channel ? _self.channel : channel // ignore: cast_nullable_to_non_nullable
+as Map<String, OneCard>,channel: null == channel ? _self.channel : channel // ignore: cast_nullable_to_non_nullable
 as WebSocketChannel,
   ));
 }
