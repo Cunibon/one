@@ -9,26 +9,20 @@ class PlayerInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 200,
-      child: Card(
-        color: Colors.blueGrey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  name,
-                  style: headerTextStyle.copyWith(color: Colors.black),
-                ),
-                Text(
-                  "Count: $cardCount",
-                  style: headerTextStyle.copyWith(color: Colors.black),
-                ),
-              ],
-            ),
+    return Card(
+      color: Colors.blueGrey,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(name, style: headerTextStyle.copyWith(color: Colors.black)),
+              Text(
+                "Count: $cardCount",
+                style: headerTextStyle.copyWith(color: Colors.black),
+              ),
+            ],
           ),
         ),
       ),

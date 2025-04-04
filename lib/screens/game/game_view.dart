@@ -23,7 +23,7 @@ class GameView extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 200,
+                width: 150,
                 height: 200,
                 child: OneCardWidget(
                   card: gameState.lastPlayed,
@@ -31,7 +31,7 @@ class GameView extends ConsumerWidget {
                 ),
               ),
               SizedBox(
-                width: 200,
+                width: 150,
                 height: 200,
                 child: GestureDetector(
                   onTap: () => ref.read(clientProvider.notifier).drawCard(),
@@ -49,7 +49,7 @@ class GameView extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: 200),
+            constraints: BoxConstraints(maxHeight: 100),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: playerInfos.length,

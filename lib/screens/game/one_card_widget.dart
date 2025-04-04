@@ -16,16 +16,16 @@ class OneCardWidget extends StatelessWidget {
 
     switch (card.value) {
       case skipCardType:
-        innerWidget = Icon(Icons.block, color: Colors.white, size: 100);
+        innerWidget = Icon(Icons.block, color: Colors.white, size: 75);
         break;
       case reverseCardType:
-        innerWidget = Icon(Icons.sync, color: Colors.white, size: 100);
+        innerWidget = Icon(Icons.sync, color: Colors.white, size: 75);
         break;
       case draw2CardType:
         innerWidget = Text("+2", style: cardTextStyle);
         break;
       case selectCardType:
-        innerWidget = Icon(Icons.dataset, color: Colors.white, size: 100);
+        innerWidget = Icon(Icons.dataset, color: Colors.white, size: 75);
         break;
       case draw4CardType:
         innerWidget = Text("+4", style: cardTextStyle);
