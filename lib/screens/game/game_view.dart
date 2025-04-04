@@ -37,7 +37,10 @@ class GameView extends ConsumerWidget {
                 ),
               ),
               IconButton(
-                onPressed: null,
+                onPressed:
+                    gameState.lastPlayed.is0
+                        ? () => ref.read(clientProvider.notifier).switchHands()
+                        : null,
                 icon: Transform.flip(
                   flipX: gameState.clockwise,
                   child: Icon(Icons.arrow_back),

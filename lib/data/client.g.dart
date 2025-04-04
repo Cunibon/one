@@ -20,7 +20,7 @@ final serverIPProvider = NotifierProvider<ServerIP, String>.internal(
 );
 
 typedef _$ServerIP = Notifier<String>;
-String _$clientHash() => r'44e255f5ebd6cbf4581abd877ed38ac05759436a';
+String _$clientHash() => r'6bf4bdf68849e502743185d3590b3b1e9d54fabe';
 
 /// See also [Client].
 @ProviderFor(Client)

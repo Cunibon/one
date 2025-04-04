@@ -4,6 +4,8 @@ const String drawCardKey = "drawCard";
 const String playCardKey = "playCard";
 const String takeCardKey = "takeCard";
 const String skipKey = "skip";
+const String switchHandsKey = "switchHands";
+const String switchPlayerHandsKey = "switchPlayerHands";
 const String registerKey = "register";
 
 const String nameKey = "nameKey";

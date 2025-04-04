@@ -54,4 +54,12 @@ class Client extends _$Client {
   void skipTurn() {
     _channel.sink.add(jsonEncode({skipKey: true}));
   }
+
+  void switchHands() {
+    _channel.sink.add(jsonEncode({switchHandsKey: true}));
+  }
+
+  void switchPlayerHands(String player) {
+    _channel.sink.add(jsonEncode({switchPlayerHandsKey: player}));
+  }
 }

@@ -5,8 +5,6 @@ import 'package:one/data/one_card/one_card_enums.dart';
 
 extension DefaultGameLogik on GameLogik {
   void drawCard(String playerName) {
-    if (playerName != currentPlayer) return;
-
     final player = players[playerName];
     final lastCard = deck.removeLast();
     updatePlayer(

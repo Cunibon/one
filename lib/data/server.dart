@@ -6,6 +6,7 @@ import 'package:one/application_constants.dart';
 import 'package:one/data/game_logik/default_game_logik.dart';
 import 'package:one/data/game_logik/game_logik.dart';
 import 'package:one/data/game_logik/network_game_logik.dart';
+import 'package:one/data/game_logik/special_game_logik.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_web_socket/shelf_web_socket.dart';
@@ -40,6 +41,10 @@ class Server {
             gameLogik.takeCard(playerName!);
           } else if (message.containsKey(playCardKey)) {
             gameLogik.playCard(playerName!, message);
+          } else if (message.containsKey(switchHandsKey)) {
+            gameLogik.switchHands();
+          } else if (message.containsKey(switchPlayerHandsKey)) {
+            gameLogik.switchPlayerHands(playerName!, message);
           } else if (message.containsKey(skipKey)) {
             gameLogik.skipTurn(playerName!);
           } else if (message.containsKey(registerKey)) {
