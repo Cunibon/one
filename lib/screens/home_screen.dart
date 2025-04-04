@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:one/application_constants.dart';
 import 'package:one/data/client.dart';
+import 'package:one/data/player_name.dart';
 import 'package:one/routes.dart';
 import 'package:one/widgets/normed_width.dart';
 
@@ -35,7 +36,9 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
             children: [
               TextField(
                 controller: nameController,
-                onChanged: (value) => localStorage.setItem(nameKey, value),
+                onChanged:
+                    (value) =>
+                        ref.read(playerNameProvider.notifier).setName(value),
                 decoration: InputDecoration(helperText: "Username"),
               ),
               SizedBox(height: 8),

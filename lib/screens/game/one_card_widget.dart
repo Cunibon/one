@@ -7,7 +7,7 @@ import 'package:one/styles.dart';
 class OneCardWidget extends StatelessWidget {
   const OneCardWidget({required this.card, required this.onTap, super.key});
 
-  final void Function() onTap;
+  final void Function()? onTap;
   final OneCard card;
 
   @override
@@ -16,19 +16,25 @@ class OneCardWidget extends StatelessWidget {
 
     switch (card.value) {
       case skipCardType:
-        innerWidget = Icon(Icons.block, color: Colors.white, size: 75);
+        innerWidget = Icon(Icons.block, size: 75);
         break;
       case reverseCardType:
-        innerWidget = Icon(Icons.sync, color: Colors.white, size: 75);
+        innerWidget = Icon(Icons.sync, size: 75);
         break;
       case draw2CardType:
         innerWidget = Text("+2", style: cardTextStyle);
         break;
       case selectCardType:
-        innerWidget = Icon(Icons.dataset, color: Colors.white, size: 75);
+        innerWidget = Icon(Icons.dataset, size: 75);
         break;
       case draw4CardType:
         innerWidget = Text("+4", style: cardTextStyle);
+        break;
+      case skipTurnCardType:
+        innerWidget = Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [Icon(Icons.skip_next, size: 75), Text("Skip turn")],
+        );
         break;
       default:
         innerWidget = Text(card.value, style: cardTextStyle);
@@ -44,15 +50,18 @@ class OneCardWidget extends StatelessWidget {
             color: Colors.black,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Stack(
-            children: [
-              Align(child: innerWidget),
-              if (card.player != null)
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(card.player!),
-                ),
-            ],
+          child: Opacity(
+            opacity: onTap != null ? 1 : 0.1,
+            child: Stack(
+              children: [
+                Align(child: innerWidget),
+                if (card.player != null)
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(card.player!),
+                  ),
+              ],
+            ),
           ),
         ),
       ),

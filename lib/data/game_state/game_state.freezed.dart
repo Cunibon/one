@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GameState {
 
- OneCard get lastPlayed; Map<String, int> get playerCards; List<OneCard> get myHand; bool get clockwise;
+ OneCard get lastPlayed; Map<String, int> get playerCards; List<OneCard> get myHand; String get currentPlayer; bool get clockwise;
 /// Create a copy of GameState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $GameStateCopyWith<GameState> get copyWith => _$GameStateCopyWithImpl<GameState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GameState&&(identical(other.lastPlayed, lastPlayed) || other.lastPlayed == lastPlayed)&&const DeepCollectionEquality().equals(other.playerCards, playerCards)&&const DeepCollectionEquality().equals(other.myHand, myHand)&&(identical(other.clockwise, clockwise) || other.clockwise == clockwise));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GameState&&(identical(other.lastPlayed, lastPlayed) || other.lastPlayed == lastPlayed)&&const DeepCollectionEquality().equals(other.playerCards, playerCards)&&const DeepCollectionEquality().equals(other.myHand, myHand)&&(identical(other.currentPlayer, currentPlayer) || other.currentPlayer == currentPlayer)&&(identical(other.clockwise, clockwise) || other.clockwise == clockwise));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,lastPlayed,const DeepCollectionEquality().hash(playerCards),const DeepCollectionEquality().hash(myHand),clockwise);
+int get hashCode => Object.hash(runtimeType,lastPlayed,const DeepCollectionEquality().hash(playerCards),const DeepCollectionEquality().hash(myHand),currentPlayer,clockwise);
 
 @override
 String toString() {
-  return 'GameState(lastPlayed: $lastPlayed, playerCards: $playerCards, myHand: $myHand, clockwise: $clockwise)';
+  return 'GameState(lastPlayed: $lastPlayed, playerCards: $playerCards, myHand: $myHand, currentPlayer: $currentPlayer, clockwise: $clockwise)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $GameStateCopyWith<$Res>  {
   factory $GameStateCopyWith(GameState value, $Res Function(GameState) _then) = _$GameStateCopyWithImpl;
 @useResult
 $Res call({
- OneCard lastPlayed, Map<String, int> playerCards, List<OneCard> myHand, bool clockwise
+ OneCard lastPlayed, Map<String, int> playerCards, List<OneCard> myHand, String currentPlayer, bool clockwise
 });
 
 
@@ -66,12 +66,13 @@ class _$GameStateCopyWithImpl<$Res>
 
 /// Create a copy of GameState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? lastPlayed = null,Object? playerCards = null,Object? myHand = null,Object? clockwise = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? lastPlayed = null,Object? playerCards = null,Object? myHand = null,Object? currentPlayer = null,Object? clockwise = null,}) {
   return _then(_self.copyWith(
 lastPlayed: null == lastPlayed ? _self.lastPlayed : lastPlayed // ignore: cast_nullable_to_non_nullable
 as OneCard,playerCards: null == playerCards ? _self.playerCards : playerCards // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,myHand: null == myHand ? _self.myHand : myHand // ignore: cast_nullable_to_non_nullable
-as List<OneCard>,clockwise: null == clockwise ? _self.clockwise : clockwise // ignore: cast_nullable_to_non_nullable
+as List<OneCard>,currentPlayer: null == currentPlayer ? _self.currentPlayer : currentPlayer // ignore: cast_nullable_to_non_nullable
+as String,clockwise: null == clockwise ? _self.clockwise : clockwise // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -92,7 +93,7 @@ $OneCardCopyWith<$Res> get lastPlayed {
 @JsonSerializable()
 
 class _GameState implements GameState {
-  const _GameState({required this.lastPlayed, required final  Map<String, int> playerCards, required final  List<OneCard> myHand, required this.clockwise}): _playerCards = playerCards,_myHand = myHand;
+  const _GameState({required this.lastPlayed, required final  Map<String, int> playerCards, required final  List<OneCard> myHand, required this.currentPlayer, required this.clockwise}): _playerCards = playerCards,_myHand = myHand;
   factory _GameState.fromJson(Map<String, dynamic> json) => _$GameStateFromJson(json);
 
 @override final  OneCard lastPlayed;
@@ -110,6 +111,7 @@ class _GameState implements GameState {
   return EqualUnmodifiableListView(_myHand);
 }
 
+@override final  String currentPlayer;
 @override final  bool clockwise;
 
 /// Create a copy of GameState
@@ -125,16 +127,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GameState&&(identical(other.lastPlayed, lastPlayed) || other.lastPlayed == lastPlayed)&&const DeepCollectionEquality().equals(other._playerCards, _playerCards)&&const DeepCollectionEquality().equals(other._myHand, _myHand)&&(identical(other.clockwise, clockwise) || other.clockwise == clockwise));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GameState&&(identical(other.lastPlayed, lastPlayed) || other.lastPlayed == lastPlayed)&&const DeepCollectionEquality().equals(other._playerCards, _playerCards)&&const DeepCollectionEquality().equals(other._myHand, _myHand)&&(identical(other.currentPlayer, currentPlayer) || other.currentPlayer == currentPlayer)&&(identical(other.clockwise, clockwise) || other.clockwise == clockwise));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,lastPlayed,const DeepCollectionEquality().hash(_playerCards),const DeepCollectionEquality().hash(_myHand),clockwise);
+int get hashCode => Object.hash(runtimeType,lastPlayed,const DeepCollectionEquality().hash(_playerCards),const DeepCollectionEquality().hash(_myHand),currentPlayer,clockwise);
 
 @override
 String toString() {
-  return 'GameState(lastPlayed: $lastPlayed, playerCards: $playerCards, myHand: $myHand, clockwise: $clockwise)';
+  return 'GameState(lastPlayed: $lastPlayed, playerCards: $playerCards, myHand: $myHand, currentPlayer: $currentPlayer, clockwise: $clockwise)';
 }
 
 
@@ -145,7 +147,7 @@ abstract mixin class _$GameStateCopyWith<$Res> implements $GameStateCopyWith<$Re
   factory _$GameStateCopyWith(_GameState value, $Res Function(_GameState) _then) = __$GameStateCopyWithImpl;
 @override @useResult
 $Res call({
- OneCard lastPlayed, Map<String, int> playerCards, List<OneCard> myHand, bool clockwise
+ OneCard lastPlayed, Map<String, int> playerCards, List<OneCard> myHand, String currentPlayer, bool clockwise
 });
 
 
@@ -162,12 +164,13 @@ class __$GameStateCopyWithImpl<$Res>
 
 /// Create a copy of GameState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? lastPlayed = null,Object? playerCards = null,Object? myHand = null,Object? clockwise = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? lastPlayed = null,Object? playerCards = null,Object? myHand = null,Object? currentPlayer = null,Object? clockwise = null,}) {
   return _then(_GameState(
 lastPlayed: null == lastPlayed ? _self.lastPlayed : lastPlayed // ignore: cast_nullable_to_non_nullable
 as OneCard,playerCards: null == playerCards ? _self._playerCards : playerCards // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,myHand: null == myHand ? _self._myHand : myHand // ignore: cast_nullable_to_non_nullable
-as List<OneCard>,clockwise: null == clockwise ? _self.clockwise : clockwise // ignore: cast_nullable_to_non_nullable
+as List<OneCard>,currentPlayer: null == currentPlayer ? _self.currentPlayer : currentPlayer // ignore: cast_nullable_to_non_nullable
+as String,clockwise: null == clockwise ? _self.clockwise : clockwise // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

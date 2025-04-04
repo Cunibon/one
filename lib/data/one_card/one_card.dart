@@ -19,6 +19,8 @@ abstract class OneCard with _$OneCard {
   factory OneCard.fromJson(Map<String, Object?> json) =>
       _OneCard.fromJson(json);
 
+  bool get isSkip => value == skipCardType;
+  bool get isReverse => value == reverseCardType;
   bool get isColorSelect => value == selectCardType || value == draw4CardType;
 
   bool sameCard(OneCard other) => value == other.value && color == other.color;

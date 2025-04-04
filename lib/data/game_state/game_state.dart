@@ -10,6 +10,7 @@ abstract class GameState with _$GameState {
     required OneCard lastPlayed,
     required Map<String, int> playerCards,
     required List<OneCard> myHand,
+    required String currentPlayer,
     required bool clockwise,
   }) = _GameState;
 

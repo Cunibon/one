@@ -6,11 +6,11 @@ part of 'client.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$serverIPHash() => r'f03687cc487d2ce32cec366490519f1ecf1f4b63';
+String _$serverIPHash() => r'f05496787fcf683a604f76b66d43265edcaf1f3b';
 
 /// See also [ServerIP].
 @ProviderFor(ServerIP)
-final serverIPProvider = AutoDisposeNotifierProvider<ServerIP, String>.internal(
+final serverIPProvider = NotifierProvider<ServerIP, String>.internal(
   ServerIP.new,
   name: r'serverIPProvider',
   debugGetCreateSourceHash:
@@ -19,8 +19,8 @@ final serverIPProvider = AutoDisposeNotifierProvider<ServerIP, String>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef _$ServerIP = AutoDisposeNotifier<String>;
-String _$clientHash() => r'00d767b8d36b30ef9686d3e77976e09b70eada33';
+typedef _$ServerIP = Notifier<String>;
+String _$clientHash() => r'44e255f5ebd6cbf4581abd877ed38ac05759436a';
 
 /// See also [Client].
 @ProviderFor(Client)

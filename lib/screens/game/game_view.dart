@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one/application_constants.dart';
 import 'package:one/data/client.dart';
 import 'package:one/data/game_state/game_state.dart';
 import 'package:one/data/one_card/one_card.dart';
 import 'package:one/data/one_card/one_card_enums.dart';
+import 'package:one/data/player_name.dart';
 import 'package:one/screens/game/one_card_widget.dart';
 import 'package:one/screens/game/player_info.dart';
 import 'package:one/screens/game/select_color_dialog.dart';
+import 'package:one/screens/game/skip_turn_dialog.dart';
 
 class GameView extends ConsumerWidget {
   const GameView({required this.gameState, super.key});
@@ -33,7 +36,13 @@ class GameView extends ConsumerWidget {
                   onTap: () => ref.read(clientProvider.notifier).takeCard(),
                 ),
               ),
-              Icon(Icons.arrow_back),
+              IconButton(
+                onPressed: null,
+                icon: Transform.flip(
+                  flipX: gameState.clockwise,
+                  child: Icon(Icons.arrow_back),
+                ),
+              ),
               SizedBox(
                 width: 150,
                 height: 200,
@@ -61,18 +70,20 @@ class GameView extends ConsumerWidget {
                   (context, index) => PlayerInfo(
                     name: playerInfos[index].key,
                     cardCount: playerInfos[index].value,
+                    isActive: gameState.currentPlayer == playerInfos[index].key,
                   ),
             ),
           ),
         ),
         Expanded(
           child: GridView.builder(
-            itemCount: gameState.myHand.length,
+            itemCount: gameState.myHand.length + 1,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
             ),
-            itemBuilder:
-                (context, index) => OneCardWidget(
+            itemBuilder: (context, index) {
+              if (index < gameState.myHand.length) {
+                return OneCardWidget(
                   card: gameState.myHand[index],
                   onTap: () async {
                     OneCard card = gameState.myHand[index];
@@ -89,7 +100,30 @@ class GameView extends ConsumerWidget {
 
                     ref.read(clientProvider.notifier).playCard(card);
                   },
-                ),
+                );
+              } else {
+                return OneCardWidget(
+                  card: OneCard(
+                    id: "skip",
+                    value: skipTurnCardType,
+                    color: CardColor.blank,
+                  ),
+                  onTap:
+                      gameState.currentPlayer == ref.watch(playerNameProvider)
+                          ? () async {
+                            final result = await showDialog(
+                              context: context,
+                              builder: (context) => SkipTurnDialog(),
+                            );
+
+                            if (result == true) {
+                              ref.read(clientProvider.notifier).skipTurn();
+                            }
+                          }
+                          : null,
+                );
+              }
+            },
           ),
         ),
       ],

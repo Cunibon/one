@@ -13,6 +13,7 @@ _GameState _$GameStateFromJson(Map<String, dynamic> json) => _GameState(
       (json['myHand'] as List<dynamic>)
           .map((e) => OneCard.fromJson(e as Map<String, dynamic>))
           .toList(),
+  currentPlayer: json['currentPlayer'] as String,
   clockwise: json['clockwise'] as bool,
 );
 
@@ -21,5 +22,6 @@ Map<String, dynamic> _$GameStateToJson(_GameState instance) =>
       'lastPlayed': instance.lastPlayed,
       'playerCards': instance.playerCards,
       'myHand': instance.myHand,
+      'currentPlayer': instance.currentPlayer,
       'clockwise': instance.clockwise,
     };

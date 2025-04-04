@@ -9,7 +9,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 part 'client.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ServerIP extends _$ServerIP {
   @override
   String build() {
@@ -49,5 +49,9 @@ class Client extends _$Client {
 
   void playCard(OneCard card) {
     _channel.sink.add(jsonEncode({playCardKey: card}));
+  }
+
+  void skipTurn() {
+    _channel.sink.add(jsonEncode({skipKey: true}));
   }
 }
