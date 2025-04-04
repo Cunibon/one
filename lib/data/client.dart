@@ -9,7 +9,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 part 'client.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 class ServerIP extends _$ServerIP {
   @override
   String build() {
