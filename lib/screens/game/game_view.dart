@@ -6,9 +6,8 @@ import 'package:one/screens/game/one_card_widget.dart';
 import 'package:one/screens/game/player_info.dart';
 
 class GameView extends ConsumerWidget {
-  const GameView({required this.serverIP, required this.gameState, super.key});
+  const GameView({required this.gameState, super.key});
 
-  final String serverIP;
   final GameState gameState;
 
   @override
@@ -28,22 +27,14 @@ class GameView extends ConsumerWidget {
                 height: 200,
                 child: OneCardWidget(
                   card: gameState.lastPlayed,
-                  onTap:
-                      () =>
-                          ref
-                              .read(clientProvider(serverIP).notifier)
-                              .takeCard(),
+                  onTap: () => ref.read(clientProvider.notifier).takeCard(),
                 ),
               ),
               SizedBox(
                 width: 200,
                 height: 200,
                 child: GestureDetector(
-                  onTap:
-                      () =>
-                          ref
-                              .read(clientProvider(serverIP).notifier)
-                              .drawCard(),
+                  onTap: () => ref.read(clientProvider.notifier).drawCard(),
                   child: Card(
                     color: Colors.blueGrey,
                     child: Center(
@@ -81,7 +72,7 @@ class GameView extends ConsumerWidget {
                   card: gameState.myHand[index],
                   onTap:
                       () => ref
-                          .read(clientProvider(serverIP).notifier)
+                          .read(clientProvider.notifier)
                           .playCard(gameState.myHand[index]),
                 ),
           ),

@@ -32,8 +32,8 @@ final gameHostRoute = GoRoute(
 
 final gameRoute = GoRoute(
   name: "game",
-  path: 'game/:serverIP',
+  path: 'game',
   builder: (BuildContext context, GoRouterState state) {
-    return GameScreen(serverIP: state.pathParameters['serverIP']!);
+    return GameScreen();
   },
 );

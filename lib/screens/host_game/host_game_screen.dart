@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:one/application_constants.dart';
 import 'package:one/data/server.dart';
 import 'package:one/screens/game/game_screen.dart';
 
@@ -16,7 +15,7 @@ class HostGameScreen extends ConsumerWidget {
     } else if (server.hasError) {
       return Center(child: Text('Error: ${server.error}'));
     } else {
-      return GameScreen(serverIP: localHost);
+      return GameScreen();
     }
   }
 }

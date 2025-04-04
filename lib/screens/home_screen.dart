@@ -1,19 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:one/application_constants.dart';
+import 'package:one/data/client.dart';
 import 'package:one/routes.dart';
 import 'package:one/widgets/normed_width.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends ConsumerState<HomeScreen> {
   final nameController = TextEditingController();
 
   @override
@@ -47,7 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   if (!kIsWeb)
                     ElevatedButton.icon(
-                      onPressed: () => context.goNamed(gameHostRoute.name!),
+                      onPressed: () {
+                        ref.read(serverIPProvider.notifier).setIP(localHost);
+                        context.goNamed(gameHostRoute.name!);
+                      },
                       label: Text("Host server"),
                       icon: Icon(Icons.router),
                     ),

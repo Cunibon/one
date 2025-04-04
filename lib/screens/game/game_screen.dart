@@ -7,24 +7,20 @@ import 'package:one/screens/game/game_view.dart';
 import 'package:one/screens/game/user_ip_widget.dart';
 
 class GameScreen extends ConsumerWidget {
-  const GameScreen({required this.serverIP, super.key});
-
-  final String serverIP;
+  const GameScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue<GameState> gameState = ref.watch(clientProvider(serverIP));
+    final ip = ref.watch(serverIPProvider);
+    AsyncValue<GameState> gameState = ref.watch(clientProvider);
 
-    final isHost = serverIP == localHost;
+    final isHost = ip == localHost;
 
     return Scaffold(
       appBar: AppBar(title: isHost ? UserIpWidget() : null),
       body: switch (gameState) {
         AsyncValue(:final error?) => Text('Error: $error'),
-        AsyncValue(:final value?) => GameView(
-          serverIP: serverIP,
-          gameState: value,
-        ),
+        AsyncValue(:final value?) => GameView(gameState: value),
         _ => Center(child: const CircularProgressIndicator()),
       },
     );
