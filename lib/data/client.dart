@@ -39,6 +39,10 @@ class Client extends _$Client {
     );
   }
 
+  void restart() {
+    _channel.sink.add(jsonEncode({restartKey: true}));
+  }
+
   void drawCard() {
     _channel.sink.add(jsonEncode({drawCardKey: true}));
   }

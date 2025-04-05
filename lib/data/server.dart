@@ -25,7 +25,7 @@ Future<Server> initServer(Ref ref) async {
 
 class Server {
   late HttpServer server;
-  final gameLogik = GameLogik();
+  GameLogik gameLogik = GameLogik();
 
   Future<void> initServer() async {
     final handler = webSocketHandler((webSocket, _) {
@@ -34,8 +34,13 @@ class Server {
       webSocket.stream.listen(
         (data) async {
           final Map<String, dynamic> message = jsonDecode(data);
-
-          if (message.containsKey(drawCardKey)) {
+          if (message.containsKey(restartKey)) {
+            final newGame = GameLogik();
+            for (final player in gameLogik.players.values) {
+              newGame.register(player.name, player.channel);
+            }
+            gameLogik = newGame;
+          } else if (message.containsKey(drawCardKey)) {
             gameLogik.drawCard(playerName!);
           } else if (message.containsKey(takeCardKey)) {
             gameLogik.takeCard(playerName!);

@@ -7,7 +7,16 @@ import 'package:one/one_deck.dart';
 
 class GameLogik {
   GameLogik() {
-    usedCards.add(deck.removeLast());
+    int index = 0;
+    OneCard firstCard = deck[index];
+
+    while (firstCard.isSpecial) {
+      index += 1;
+      firstCard = deck[index];
+    }
+
+    deck.remove(firstCard);
+    usedCards.add(firstCard);
   }
 
   final Map<String, Player> players = {};
@@ -73,9 +82,10 @@ class GameLogik {
     int index = playerNames.indexOf(currentPlayer) + operator;
 
     if (index < 0) {
-      index = playerNames.length - 1;
+      index = playerNames.length + index;
     } else if (index >= playerNames.length) {
-      index = 0;
+      final additional = index - playerNames.length;
+      index = additional;
     }
 
     currentPlayer = playerNames[index];

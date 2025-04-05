@@ -18,11 +18,29 @@ class SelectColorDialog extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () => context.pop(CardColor.red),
-                child: Container(color: Colors.red, width: 100, height: 100),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                    ),
+                  ),
+                ),
               ),
               GestureDetector(
                 onTap: () => context.pop(CardColor.green),
-                child: Container(color: Colors.green, width: 100, height: 100),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(8),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -31,11 +49,29 @@ class SelectColorDialog extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () => context.pop(CardColor.blue),
-                child: Container(color: Colors.blue, width: 100, height: 100),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(8),
+                    ),
+                  ),
+                ),
               ),
               GestureDetector(
                 onTap: () => context.pop(CardColor.yellow),
-                child: Container(color: Colors.yellow, width: 100, height: 100),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.yellow,
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(8),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

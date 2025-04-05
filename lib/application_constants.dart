@@ -1,5 +1,7 @@
 const String localHost = "127.0.0.1";
 
+const String restartKey = "restart";
+
 const String drawCardKey = "drawCard";
 const String playCardKey = "playCard";
 const String takeCardKey = "takeCard";

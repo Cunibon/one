@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-class SkipTurnDialog extends StatelessWidget {
-  const SkipTurnDialog({super.key});
+class ConfirmationDialog extends StatelessWidget {
+  const ConfirmationDialog({required this.title, super.key});
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Skip your turn?"),
+      title: Text(title),
       actions: [
         ElevatedButton(
           style: TextButton.styleFrom(backgroundColor: Colors.red),
