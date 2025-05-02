@@ -17,7 +17,7 @@ class PlayHandWidget extends ConsumerWidget {
     final gameState = ref.watch(clientProvider).value!;
 
     final width = MediaQuery.sizeOf(context).width;
-    final rowCount = (width / 130).floor();
+    final rowCount = (width / 120).floor();
 
     return GridView.builder(
       itemCount: gameState.myHand.length + 1,

@@ -72,22 +72,29 @@ class GameLogik {
     advancePlayer();
   }
 
-  void advancePlayer({int steps = 1}) =>
-      movePlayer((clockwise ? 1 : -1) * steps);
-  void recedePlayer({int steps = 1}) =>
-      movePlayer((clockwise ? -1 : 1) * steps);
+  void advancePlayer() => movePlayer(clockwise ? 1 : -1);
+  void recedePlayer() => movePlayer(clockwise ? -1 : 1);
 
   void movePlayer(int operator) {
     final playerNames = players.keys.toList();
-    int index = playerNames.indexOf(currentPlayer) + operator;
+    int index = playerNames.indexOf(currentPlayer);
 
-    if (index < 0) {
-      index = playerNames.length + index;
-    } else if (index >= playerNames.length) {
-      final additional = index - playerNames.length;
-      index = additional;
+    for (final _ in playerNames) {
+      index += operator;
+
+      if (index < 0) {
+        index = playerNames.length + index;
+      } else if (index >= playerNames.length) {
+        final additional = index - playerNames.length;
+        index = additional;
+      }
+
+      final player = players[playerNames[index]]!;
+
+      if (player.hand.isNotEmpty) {
+        currentPlayer = playerNames[index];
+        break;
+      }
     }
-
-    currentPlayer = playerNames[index];
   }
 }

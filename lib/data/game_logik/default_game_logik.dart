@@ -30,7 +30,10 @@ extension DefaultGameLogik on GameLogik {
         }
 
         updatePlayer(
-          player!.copyWith(hand: Map.from(player.hand)..[card.id] = card),
+          player!.copyWith(
+            hand: Map.from(player.hand)
+              ..[card.id] = card.copyWith(player: null),
+          ),
         );
         recedePlayer();
       }
